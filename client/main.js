@@ -1,3 +1,6 @@
+// endpoint URL
+const endpoint = 'http://127.0.0.1:3000/quote';
+
 $(document).ready(function() {
 
   // get a quote from the server when the page loads and add it to the dom
@@ -10,9 +13,6 @@ $(document).ready(function() {
     addQuote(quote);
   });
 
-  // endpoint URL
-  const endpoint = 'http://12.0.0.1:3000/quote';
-
   function getQuote() {
     //YOUR CODE HERE, Add a GET request
     $.ajax({
@@ -21,12 +21,11 @@ $(document).ready(function() {
       success: (data, code) => {
         console.log('Request to add code successful:', code);
         // add the data to the DOM
-        $('#response').html(`Here's you're data!: ${data}`);
+        $('#response').html(data);
       },
-      error: (err, code) => {
-        alert('Unable to get quote. Status Code:', code, err);
+      error: (error, code) => {
+        console.log('Unable to get quote.');
       },
-      contentType: 'application/JSON; charset=UTF-8'
     });
 
   }
@@ -37,14 +36,12 @@ $(document).ready(function() {
       url: endpoint,
       method: 'POST',
       data: {},
-      success: (data,code) => {
+      success: (data, code) => {
         console.log('Request to add code successful:', code)
-
       },
       error: (err, code) => {
-        alert('Unable to add quote. Status Code:', code, err);
+        alert('Unable to add quote.');
       },
-      contentType: 'application/JSON; charset=UTF-8'
     });
   }
 
