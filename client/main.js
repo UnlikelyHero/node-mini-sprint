@@ -38,7 +38,9 @@ $(document).ready(function() {
       data: quote,
       success: (data, code) => {
         console.log('Request to add quote successful!')
+        // clear the value from the input field
         $('input').val('');
+        // update the response quote to acknowledge the req
         $('#response').html(data);
       },
       error: (err, code) => {
