@@ -19,7 +19,7 @@ $(document).ready(function() {
       url: endpoint,
       method: 'GET',
       success: (data, code) => {
-        console.log('Request to pull data successful!');
+        console.log('Request to get data successful!');
         // add the data to the DOM
         $('#response').html(data);
       },
