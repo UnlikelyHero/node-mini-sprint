@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const port = 3000
 
@@ -30,14 +31,15 @@ function getRandomInt(min, max) {
   //The maximum is exclusive and the minimum is inclusive
 }
 
+app.use(cors());
 app.use(express.text());
 app.use(express.static('../react-client/dist/'));
 
-// app.all('/', function(req, res) {
-//   res.redirect(307, '/quote');
-//   // status-code 307 preserves the original method and body on the redirect
-//   // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
-// })
+app.all('/', function(req, res) {
+  res.redirect(307, '/quote');
+  // status-code 307 preserves the original method and body on the redirect
+  // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+})
 
 app.get('/quote', (req, res) => {
   // this replaces the "get one' function from node http server.

@@ -1,25 +1,67 @@
 import React from 'react';
+import axios from 'axios';
+
+const server = axios.create({
+  baseURL: 'http://localhost:3000'
+});
 
 export default class App extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      quote: '',
+      quote: 'Hey there, nice default quote! - Don Vida',
+      value: '',
       showSaved: false
     }
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    server.get('/quote').then(res => {
+      this.setState({
+        quote: res.data
+      })
+    });
+  };
+
+  handleChange(event) {
+    this.setState({
+      value: event.target.value,
+    })
+  };
+
+  handleSubmit(event) {
+    alert('your value is ' + this.state.value);
+    this.setState({
+      showSaved: true
+    });
+
+    setTimeout(() => {
+      this.setState({
+        showSaved: false
+      });
+    }, 10000);
+  };
+
+
+
   render() {
+    var style = {
+      display: this.state.showSaved ? 'block' : 'none'
+    }
+
     return (
     <div>
       <h1>Random Quote Generator</h1>
-      <h2 id="quote">quote goes here</h2>
-      <form>
-        <input type="text" />
-        <button id="submit">Submit</button>
-        <p id="response">confirmation that the quote was saved goes here.</p>
-      </form>
+      <h2 id="quote">{this.state.quote}</h2>
+      <div id="form">
+        <input type="text" onChange={this.handleChange}/>
+        <button id="submit" onClick={this.handleSubmit}>Submit</button>
+        <p style={style} id="response">Saved Quote: {this.state.value}</p>
+      </div>
     </div>
     );
   };
