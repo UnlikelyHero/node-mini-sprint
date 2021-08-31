@@ -45,7 +45,7 @@ app.get('/quote', (req, res) => {
 });
 
 app.post('/quote', (req, res) => {
-  console.log('made a post req from /quote', req.body);
+  console.log('made a post req from /quote');
   quotes.push(req.body);
   res.status(200).set(headers).send(req.body);
 });
