@@ -27,6 +27,9 @@ export default class App extends React.Component {
     });
   };
 
+  componentDidUpdate() {
+  }
+
   handleChange(event) {
     this.setState({
       value: event.target.value,
@@ -34,9 +37,20 @@ export default class App extends React.Component {
   };
 
   handleSubmit(event) {
-    alert('your value is ' + this.state.value);
+    var quote = this.state.value;
+
+    server.post('/quote', quote, {
+      'headers': {
+        'content-type': 'text/plain'
+      }
+    }).then(res => {
+      this.setState({
+        quote: res.data
+      })
+    });
+
     this.setState({
-      showSaved: true
+      showSaved: true,
     });
 
     setTimeout(() => {
@@ -58,7 +72,7 @@ export default class App extends React.Component {
       <h1>Random Quote Generator</h1>
       <h2 id="quote">{this.state.quote}</h2>
       <div id="form">
-        <input type="text" onChange={this.handleChange}/>
+        <input type="text" onChange={this.handleChange} value={this.state.value}/>
         <button id="submit" onClick={this.handleSubmit}>Submit</button>
         <p style={style} id="response">Saved Quote: {this.state.value}</p>
       </div>
