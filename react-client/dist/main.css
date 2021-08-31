@@ -1,0 +1,13 @@
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#quote {
+  font-family: 'Brush Script MT', cursive;
+  font-size: xx-large;
+  color: grey;
+}
+
+#response {
+  font-size: small;
+}

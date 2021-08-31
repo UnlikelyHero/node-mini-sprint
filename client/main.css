@@ -2,7 +2,12 @@ body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-#response {
+#quote {
   font-family: 'Brush Script MT', cursive;
-  font-size: xx-large
+  font-size: xx-large;
+  color: grey;
+}
+
+#response {
+  font-size: small;
 }

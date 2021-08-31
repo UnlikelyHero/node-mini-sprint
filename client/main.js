@@ -21,7 +21,7 @@ $(document).ready(function() {
       success: (data, code) => {
         console.log('Request to get data successful!');
         // add the data to the DOM
-        $('#response').html(data);
+        $('#quote').html(data);
       },
       error: (error, code) => {
         console.log('Unable to get quote.');
@@ -42,7 +42,13 @@ $(document).ready(function() {
         // clear the value from the input field
         $('input').val('');
         // update the response quote to acknowledge the req
-        $('#response').html(data);
+        $('#quote').html(data);
+        $('#response').html('saved!')
+
+        setTimeout(() => {
+          $('#response').html('');
+        }, 10000)
+
       },
       error: (err, code) => {
         alert('Unable to add quote.');

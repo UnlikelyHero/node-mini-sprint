@@ -31,12 +31,13 @@ function getRandomInt(min, max) {
 }
 
 app.use(express.text());
+app.use(express.static('../react-client/dist/'));
 
-app.all('/', function(req, res) {
-  res.redirect(307, '/quote');
-  // status-code 307 preserves the original method and body on the redirect
-  // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
-})
+// app.all('/', function(req, res) {
+//   res.redirect(307, '/quote');
+//   // status-code 307 preserves the original method and body on the redirect
+//   // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+// })
 
 app.get('/quote', (req, res) => {
   // this replaces the "get one' function from node http server.
@@ -47,7 +48,7 @@ app.get('/quote', (req, res) => {
 app.post('/quote', (req, res) => {
   console.log('made a post req from /quote');
   quotes.push(req.body);
-  res.status(200).set(headers).send(req.body);
+  res.status(200).set(headers).send(quotes[quotes.length - 1]);
 });
 
 app.listen(port, () => {
