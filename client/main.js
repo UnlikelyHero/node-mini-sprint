@@ -36,8 +36,9 @@ $(document).ready(function() {
       url: endpoint,
       method: 'POST',
       data: quote,
+      contentType: 'text/plain',
       success: (data, code) => {
-        console.log('Request to add quote successful!')
+        console.log(quote, 'Request to add quote successful!', data)
         // clear the value from the input field
         $('input').val('');
         // update the response quote to acknowledge the req
