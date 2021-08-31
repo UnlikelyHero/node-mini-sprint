@@ -32,8 +32,6 @@ function getRandomInt(min, max) {
 
 app.use(express.text());
 
-// {type: 'text/plain'}
-
 app.all('/', function(req, res) {
   res.redirect(307, '/quote');
   // status-code 307 preserves the original method and body on the redirect
