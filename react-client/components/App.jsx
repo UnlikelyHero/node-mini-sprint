@@ -76,7 +76,7 @@ export default class App extends React.Component {
       <h1>Random Quote Generator</h1>
       <h2 id="quote">{this.state.quote}</h2>
       <div id="form">
-        <input type="text" onChange={this.handleChange} value={this.state.value}/>
+        <input type="text" onChange={this.handleChange} value={this.state.quoteInputValue}/>
         <button id="submit" onClick={this.handleSubmit}>Submit</button>
         <p style={style} id="response">Saved Quote: {this.state.lastSavedValue}</p>
       </div>
