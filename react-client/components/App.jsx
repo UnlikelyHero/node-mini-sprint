@@ -12,6 +12,7 @@ export default class App extends React.Component {
     this.state = {
       quote: 'Hey there, nice default react quote! - Don Vida',
       quoteInputValue: '',
+      lastSavedValue: '',
       showSaved: false
     }
 
@@ -37,7 +38,8 @@ export default class App extends React.Component {
   };
 
   handleSubmit(event) {
-    var quote = this.state.value;
+    var quote = this.state.quoteInputValue;
+    var lastValue = this.state.quoteInputValue
 
     server.post('/quote', quote, {
       'headers': {
@@ -45,7 +47,9 @@ export default class App extends React.Component {
       }
     }).then(res => {
       this.setState({
-        quote: res.data
+        quote: res.data,
+        quoteInputValue: '',
+        lastSavedValue: lastValue
       })
     });
 
@@ -74,7 +78,7 @@ export default class App extends React.Component {
       <div id="form">
         <input type="text" onChange={this.handleChange} value={this.state.value}/>
         <button id="submit" onClick={this.handleSubmit}>Submit</button>
-        <p style={style} id="response">Saved Quote: {this.state.quoteInputValue}</p>
+        <p style={style} id="response">Saved Quote: {this.state.lastSavedValue}</p>
       </div>
     </div>
     );

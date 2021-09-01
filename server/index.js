@@ -49,14 +49,16 @@ app.get('/quote', (req, res) => {
 
 app.post('/quote', (req, res) => {
   model.postQuote(req.body, (err, data) => {
+    console.log('>> attempting to add a quote:', req.body)
     if (err) {
       res.status(400).set(headers).send(err);
     } else {
-      console.log('Let\'s get the id!', data)
+      console.log('>> confirming persistance for id:', data)
       model.getQuoteById(data, (err, data) => {
         if (err) {
           res.status(400).set(headers).send(err);
         } else {
+          console.log('>> successfully stored quote:\n', data);
           res.status(200).set(headers).send(data);
         }
       });
