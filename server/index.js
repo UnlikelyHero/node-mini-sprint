@@ -1,17 +1,12 @@
 const express = require('express');
 const cors = require('cors');
+const model = require('./model.js');
 const app = express();
 const port = 3000
 
-// storage of strings with favorite quotes
+// temporary quotes storage.
 const quotes = [
-  'The greatest glory in living lies not in never falling, but in rising every time we fall. - Nelson Mandela',
-  'The way to get started is to quit talking and begin doing. - Walt Disney',
-  'Your time is limited, so don\'t waste it living someone else\'s life. Don\'t be trapped by dogma – which is living with the results of other people\'s thinking. - Steve Jobs',
-  'If life were predictable it would cease to be life, and be without flavor. - Eleanor Roosevelt',
-  'If you look at what you have in life, you\'ll always have more. If you look at what you don\'t have in life, you\'ll never have enough. - Oprah Winfrey',
-  'If you set your goals ridiculously high and it\'s a failure, you will fail above everyone else\'s success. - James Cameron',
-  'Life is what happens when you\'re busy making other plans. - John Lennon'
+  'this is a locally stored server quote - dv'
 ];
 
 //headers to allows CORS requests
@@ -43,14 +38,30 @@ app.all('/', function(req, res) {
 
 app.get('/quote', (req, res) => {
   // this replaces the "get one' function from node http server.
-  console.log('made a get req from /quote');
-  res.status(200).set(headers).send(quotes[getRandomInt(0, quotes.length)]);
+  model.getRandomQuote((err, data) => {
+    if (err) {
+      res.status(400).set(headers).send(err);
+    } else {
+      res.status(200).set(headers).send(data);
+    }
+  });
 });
 
 app.post('/quote', (req, res) => {
-  console.log('made a post req from /quote');
-  quotes.push(req.body);
-  res.status(200).set(headers).send(quotes[quotes.length - 1]);
+  model.postQuote(req.body, (err, data) => {
+    if (err) {
+      res.status(400).set(headers).send(err);
+    } else {
+      console.log('Let\'s get the id!', data)
+      model.getQuoteById(data, (err, data) => {
+        if (err) {
+          res.status(400).set(headers).send(err);
+        } else {
+          res.status(200).set(headers).send(data);
+        }
+      });
+    }
+  });
 });
 
 app.listen(port, () => {

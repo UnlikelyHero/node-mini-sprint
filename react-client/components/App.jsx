@@ -10,8 +10,8 @@ export default class App extends React.Component {
     super(props)
 
     this.state = {
-      quote: 'Hey there, nice default quote! - Don Vida',
-      value: '',
+      quote: 'Hey there, nice default react quote! - Don Vida',
+      quoteInputValue: '',
       showSaved: false
     }
 
@@ -32,7 +32,7 @@ export default class App extends React.Component {
 
   handleChange(event) {
     this.setState({
-      value: event.target.value,
+      quoteInputValue: event.target.value,
     })
   };
 
@@ -74,7 +74,7 @@ export default class App extends React.Component {
       <div id="form">
         <input type="text" onChange={this.handleChange} value={this.state.value}/>
         <button id="submit" onClick={this.handleSubmit}>Submit</button>
-        <p style={style} id="response">Saved Quote: {this.state.value}</p>
+        <p style={style} id="response">Saved Quote: {this.state.quoteInputValue}</p>
       </div>
     </div>
     );

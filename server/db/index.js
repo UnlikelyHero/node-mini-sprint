@@ -1,9 +1,9 @@
 const mysql = require('mysql');
-const config = require(./config.js);
+const config = require('./config.js');
 
 module.exports = {
   // query to make request to mysql.
-  query: (queryString, queryParams, callback) => {
+  dbquery: (queryString, callback) => {
     var dbAccess = mysql.createConnection({
       host: '127.0.0.1',
       user: 'hr-atx',
@@ -12,12 +12,12 @@ module.exports = {
     });
     dbAccess.connect();
 
-    console.log('Database Connected!'); // <<< TEST
-
-    dbAccess.query(queryString, queryParams, (err, data) => {
+    dbAccess.query(queryString, null, (err, data) => {
       if (err) {
+        console.log('a db error occured', err);
         callback(err);
       } else {
+        console.log('query successful');
         // select queries will return an array
         if (Array.isArray(data)) {
           Promise.all(data)
@@ -31,7 +31,6 @@ module.exports = {
       }
     });
 
-    console.log('Closing Database'); // <<< TEST
     dbAccess.end();
   }
 }
