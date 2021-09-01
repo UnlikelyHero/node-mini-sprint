@@ -28,9 +28,6 @@ export default class App extends React.Component {
     });
   };
 
-  componentDidUpdate() {
-  }
-
   handleChange(event) {
     this.setState({
       quoteInputValue: event.target.value,
@@ -63,8 +60,6 @@ export default class App extends React.Component {
       });
     }, 10000);
   };
-
-
 
   render() {
     var style = {
